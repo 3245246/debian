@@ -1,0 +1,41 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: computer
+    username: computer
+    password: "$6$0/uL3PZZ8nKKk4zV$mjU4DkMqdL5/xvZoUOBD68.pZ14Ag0S0EMJgzkgEeEVLpkyqXd3h60CNK6ulP2/9CGuAIhdmkhwBVEM2ihuQY."
+  locale: en_US
+  keyboard:
+    layout: us
+  storage:
+    layout:
+      name: direct
+  packages:
+    - linux-headers-amd64
+    - virtualbox-guest-utils
+    - virtualbox-guest-dkms
+    - openssh-server
+    - ark
+    - dolphin
+    - konsole
+    - build-essential
+    - cmake
+    - valgrind
+    - git
+    - pandoc
+    - texlive-latex-extra
+    - curl
+    - tldr
+    - k3b
+    - partitionmanager
+    - spek
+    - neofetch
+    - cool-retro-term
+    - ffmpeg
+    - flatpak
+    - plasma-discover-backend-flatpak
+
+  late-commands:
+    - curtin in-target --target=/target -- bash -c "apt-get update && apt-get -y upgrade"
+    - curtin in-target --target=/target -- bash -c "dkms autoinstall || true"
